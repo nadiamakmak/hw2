@@ -5,14 +5,3 @@ book.o
 movie.o
 util.o
 product_parser.o
-
-amazon.cpp
-database.txt
-datastore.h
-db_parser.cpp
-db_parser.h
-Makefile
-product.cpp
-product.h
-user.cpp
-user.h
