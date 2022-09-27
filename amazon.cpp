@@ -100,7 +100,34 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
+            else if ( cmd == "ADD" ) {
+                string username;
+                if((ss>>username)==false){
+                    cout << "Invalid request" << endl;
+                }
 
+                string hitNum;
+                if((ss>>hitNum)==false){
+                    cout << "Invalid request" << endl;
+                }
+
+                int number = stoi(hitNum);
+                if((allUsers.find(username)!=allUsers.end()) && (hitNum <= hits.size())) { //if the user exists and they selected a valid input
+                    ds.addToCart(username, number, hits);
+                }
+            }
+            
+            else if ( cmd == "VIEWCART") {
+                string username;
+                if((ss>>username)==false){
+                    cout << "Invalid request" << endl;
+                }
+
+                if(allUsers.find(username)!=allUsers.end()){
+                    
+                }
+                
+            }
 
 
 
