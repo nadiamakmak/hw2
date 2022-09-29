@@ -5,10 +5,12 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+#include <string>
 #include "product.h"
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +31,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -78,7 +80,7 @@ int main(int argc, char* argv[])
                     terms.push_back(term);
                 }
                 hits = ds.search(terms, 0);
-                displayProducts(hits);
+                displayProducts(hits); 
             }
             else if ( cmd == "OR" ) {
                 string term;
@@ -101,35 +103,56 @@ int main(int argc, char* argv[])
             }
 	    /* Add support for other commands here */
             else if ( cmd == "ADD" ) {
+
                 string username;
-                if((ss>>username)==false){
-                    cout << "Invalid request" << endl;
-                }
-
                 string hitNum;
-                if((ss>>hitNum)==false){
+                if(!(ss>>username)){
                     cout << "Invalid request" << endl;
                 }
 
-                int number = stoi(hitNum);
-                if((allUsers.find(username)!=allUsers.end()) && (hitNum <= hits.size())) { //if the user exists and they selected a valid input
-                    ds.addToCart(username, number, hits);
+            
+                else if(!(ss>>hitNum)){
+                    cout << "Invalid request" << endl;
                 }
+
+                else{
+                    unsigned int number = stoi(hitNum);
+                    if(number <= hits.size()) { //they selected a valid input
+                        ds.addToCart(username, number, hits);
+                    }
+                    else{
+                        cout << "Invalid request" << endl;
+                    }
+                }
+
             }
             
             else if ( cmd == "VIEWCART") {
                 string username;
-                if((ss>>username)==false){
+                if(!(ss>>username)){
                     cout << "Invalid request" << endl;
                 }
 
-                if(allUsers.find(username)!=allUsers.end()){
-                    
+                else{
+                    ds.viewCart(username);
                 }
-                
+
             }
 
+            else if ( cmd == "BUYCART") {
+                string username;
+                if(!(ss>>username)){
+                    cout << "Invalid request" << endl;
+                }
 
+                if(username != ""){
+                    ds.buyCart(username);
+                }
+
+                else {
+                    cout << "Invalid username" << endl;
+                }  
+            }
 
             else {
                 cout << "Unknown command" << endl;

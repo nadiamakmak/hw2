@@ -5,3 +5,12 @@ book.o
 movie.o
 util.o
 product_parser.o
+
+amazon
+mydatastore.o
+amazon.o
+db_parser.o
+product.o
+user.o
+test
+testing

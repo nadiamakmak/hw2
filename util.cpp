@@ -15,46 +15,35 @@ std::string convToLower(std::string src)
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
-	convToLower(rawWords);
 	stringstream stream;
+	stream << convToLower(rawWords);
 	set<string> keywords;
 	string word = "";
 	string temp = "";
-	int charNum = 0;
 
 	while(stream >> temp){ //reading in word by word (stopping at whitespaces)
+		word = "";
 
-		while(charNum<(int)temp.size()){ //goes through the entire first "word"
-			if(temp[charNum]=='-'){ //if it's a hyphen, add it to the first word and keep going
-				word += temp[charNum];
-				charNum++;
-				continue;
-			}
+		for(unsigned int i = 0; i<temp.size(); i++){ //for each character in the word
 
-			else if(ispunct(temp[charNum])){ //if there is punctuation (not a hyphen)
-				if(word.size()>=2){ //see if what we have so far is greater than 2 characters
-					keywords.insert(word); //if yes, add it to keywords
+			if(ispunct(temp[i]) && !(temp[i]=='-')){ //if its punctuation and NOT a hyphen (to account for isbn)
+				if(word.size()>=2){ //if the current word is bigger than two characters, add it to keyterms
+					keywords.insert(word);
 				}
-				word = ""; //discard everything before punctuation (either added or not added)
 			}
 
-			else{ //if not punctuation, add the character to the word
-				word += temp[charNum];
-				charNum++;
+			else{ //if not punctuation and/or is a hyphen, continue using it
+				word = word + temp[i];
 			}
-
 		}
 
 		if(word.size()>=2){ //if the final word (at whitespace) is bigger than 2 characters, add it
 			keywords.insert(word);
 		}
 
-		word.clear(); //discard the word to start over
-
 	}
 
 	return keywords;
-
 }
 
 /**************************************************

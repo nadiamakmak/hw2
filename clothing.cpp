@@ -20,14 +20,14 @@ set<std::string> Clothing::keywords() const{
 
 string Clothing::displayString() const{
 	string info;
-	stringstream temp;
-	temp << price_;
-	string price = temp.str();
-	temp.clear();
-	temp << qty_;
-	string quantity = temp.str();
+	stringstream priStream;
+	stringstream qtyStream;
+	priStream << price_;
+	string price = priStream.str();
+	qtyStream << qty_;
+	string quantity = qtyStream.str();
 
-	info = name_ + "\n" + "Size: " + size_ + " Brand: " + brand_ + "\n" + price + " " + quantity + " left.\n";
+	info = name_ + "\n" + "Size: " + size_ + " Brand: " + brand_ + "\n" + price + " " + quantity + " left.";
 
 	return info;
 }
