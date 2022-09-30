@@ -26,7 +26,7 @@ std::set<std::string> parseStringToWords(string rawWords)
 
 		for(unsigned int i = 0; i<temp.size(); i++){ //for each character in the word
 
-			if(ispunct(temp[i]) && !(temp[i]=='-')){ //if its punctuation and NOT a hyphen (to account for isbn)
+			if(ispunct(temp[i]) && temp[i]!='-'){ //if its punctuation and NOT a hyphen (to account for isbn)
 				if(word.size()>=2){ //if the current word is bigger than two characters, add it to keyterms
 					keywords.insert(word);
 				}
