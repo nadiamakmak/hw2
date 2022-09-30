@@ -13,12 +13,12 @@
 template <typename T>
 std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
 {
-	typename std::set<T>::iterator it = s1.begin();
+	typename std::set<T>::iterator it = s1.begin(); 
 	std::set<T> intersections;
 
-	while(it != s1.end()){
-		if(s2.find(*it)!=s2.end()){
-			intersections.insert(*it);
+	while(it != s1.end()){ //go through all in s1
+		if(s2.find(*it)!=s2.end()){ //if s2 has the same thing as s1
+			intersections.insert(*it); //add to intersection
 		}
 
 		++it;
@@ -32,10 +32,10 @@ template <typename T>
 std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
 {
 	typename std::set<T>::iterator it = s1.begin();
-	std::set<T> unions = s2;
+	std::set<T> unions = s2; //make the result s2 for convenience
 
-	while(it != s1.end()){
-		if(unions.find(*it)==unions.end()){
+	while(it != s1.end()){ //go through all in s1
+		if(unions.find(*it)==unions.end()){ //if thing isn't in s2, add it to the final result
 			unions.insert(*it);
 		}
 

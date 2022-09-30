@@ -28,7 +28,7 @@ void MyDataStore::addProduct(Product* p){
 	while(kwordsIt != kwords.end()){ //for all the keywords of a certain product
 
 		if(keywordProducts.find(*kwordsIt) == keywordProducts.end()){ //if this is a new word
-			//new set of products that correspond to this word, and add this word (and its corresponding products) to the list of all words
+			//create a new set of products that correspond to this word, and add this word (and its corresponding products) to the list of all words
 			set<Product*> results;
 			results.insert(p);
 			keywordProducts.insert(make_pair(*kwordsIt, results));
@@ -74,13 +74,13 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 		set<Product*> orSearch;
 
 		for(unsigned int i=0; i<terms.size(); i++){ //for every searched term
-			orSearch = setUnion(keywordProducts[terms[i]], orSearch);
+			orSearch = setUnion(keywordProducts[terms[i]], orSearch); //union function twice (first and empty, second and first)
 		}
 		tempResults = orSearch;
 	}
 
 	set<Product*>::iterator tempsIt = tempResults.begin();
-	while(tempsIt!=tempResults.end()){
+	while(tempsIt!=tempResults.end()){ //put from set into vector (as per function signature)
 		results.push_back(*tempsIt);
 		++tempsIt;
 	}
@@ -94,13 +94,13 @@ void MyDataStore::dump(std::ostream& ofile){
 
 	ofile << "<products>" << endl;
 
-	while(product != allProducts.end()){
+	while(product != allProducts.end()){ //go through all products, dumping each one into the given format
 		(*product)->dump(ofile);
 		++product;
 	}
 	ofile << "</products>" << endl << "<users>" << endl;
 
-	while(user != allUsers.end()){
+	while(user != allUsers.end()){ //go through all users, dumping each one into the given format
 		(*user)->dump(ofile);
 		++user;
 	}
@@ -109,7 +109,7 @@ void MyDataStore::dump(std::ostream& ofile){
 }
 
 void MyDataStore::addToCart(std::string user, int itemNum, std::vector<Product*> hits){
-
+	//checking to see if the user exists
 	bool exist = false;
 	for(unsigned int i=0; i<allUsers.size(); i++){ //find the actual user and make that the account
 		if(allUsers[i]->getName() == user){
@@ -117,7 +117,7 @@ void MyDataStore::addToCart(std::string user, int itemNum, std::vector<Product*>
 		}
 	}
 	if(exist == false){ //if that user doesn't exist, invalid request
-		cout << "Invalid request" << endl;
+		cout << endl << "Invalid request" << endl;
 		return;
 	}
 
@@ -134,8 +134,8 @@ void MyDataStore::addToCart(std::string user, int itemNum, std::vector<Product*>
 }
 
 void MyDataStore::viewCart(std::string user){
+	//checking to see if the user exists
 	bool exist = false;
-
 	for(unsigned int i=0; i<allUsers.size(); i++){ //find the actual user
 		if(allUsers[i]->getName() == user){
 			exist = true;
@@ -143,12 +143,12 @@ void MyDataStore::viewCart(std::string user){
 	}
 
 	if(exist == false){ //if that user doesn't exist, invalid request
-		cout << "Invalid username" << endl;
+		cout << endl << "Invalid username" << endl;
 		return;
 	}
 
 	else if((cart.find(user)->second.size() == 0) || (cart.find(user) == cart.end())){ //if the cart is empty or nothing has been added yet
-		cout << "No items in cart" << endl;
+		cout << endl << "No items in cart" << endl;
 	}
 
 	else if(cart.find(user) != cart.end()){ //if the user exists and the user's cart is not empty 
@@ -169,7 +169,7 @@ void MyDataStore::viewCart(std::string user){
 }
 
 void MyDataStore::buyCart(std::string user){
-
+	//checking to see if the user exists
 	bool exist = false;
 	for(unsigned int i=0; i<allUsers.size(); i++){
 		if(allUsers[i]->getName() == user){
@@ -177,7 +177,7 @@ void MyDataStore::buyCart(std::string user){
 		}
 	}
 	if(exist == false){ //if that user doesn't exist, invalid username
-		cout << "Invalid username" << endl;
+		cout << endl << "Invalid username" << endl;
 		return;
 	}
 
@@ -191,7 +191,7 @@ void MyDataStore::buyCart(std::string user){
 	}
 
 	if(cart.find(account->getName()) == cart.end()){ //if the user doesn't have a cart (nothing has been added)
-		cout << "No items in cart" << endl;
+		cout << endl << "No items in cart" << endl;
 	}
 	
 	else{ //cart has stuff and the user exists

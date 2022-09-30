@@ -32,7 +32,7 @@ std::set<std::string> parseStringToWords(string rawWords)
 				}
 			}
 
-			else{ //if not punctuation and/or is a hyphen, continue using it
+			else{ //if not punctuation and/or is a hyphen, continue reading in the letters
 				word = word + temp[i];
 			}
 		}
