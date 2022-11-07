@@ -159,7 +159,8 @@ void MyDataStore::viewCart(std::string user){
 		int index = 1;
 		cout << endl;
 		while(whichProduct != currentCart.end()){
-			cout << index << "." << (*whichProduct)->displayString() << endl <<endl;
+			cout << "Item "<< index << endl << (*whichProduct)->displayString() << endl <<endl;
+			//cout << index << "." << (*whichProduct)->displayString() << endl <<endl;
 			++whichProduct;
 			index++;
 		}

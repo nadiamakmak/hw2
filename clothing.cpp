@@ -33,5 +33,5 @@ string Clothing::displayString() const{
 }
 
 void Clothing::dump(std::ostream& os) const{
-	os << category_ << endl << name_ << endl << price_ << endl << qty_ << endl << size_ << endl << brand_ << endl;
+	os << category_ << endl << name_ << endl << std::fixed << setprecision(2) << price_ << endl << qty_ << endl << size_ << endl << brand_ << endl;
 }	
